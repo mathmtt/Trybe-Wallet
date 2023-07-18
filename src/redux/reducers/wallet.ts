@@ -3,6 +3,6 @@ import { AnyAction } from 'redux';
 
 export const initialState = {};
 
-export const walletReducer = (state = initialState, action: AnyAction) => {
+export const walletReducer = (state = initialState) => {
   return state;
 };
