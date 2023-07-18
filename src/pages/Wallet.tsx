@@ -1,5 +1,9 @@
 function Wallet() {
-  return <div>TrybeWallet</div>;
+  return (
+    <div>
+      TrybeWallet
+    </div>
+  );
 }
 
 export default Wallet;
