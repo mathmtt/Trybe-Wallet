@@ -1,5 +1,4 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { AnyAction } from 'redux';
 
 export const initialState = {};
 
