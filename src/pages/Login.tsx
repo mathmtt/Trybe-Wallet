@@ -1,60 +1,55 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setEmail } from '../redux/actions';
+import { UserAction } from '../redux/actions';
+
+const initialStateLogin = {
+  email: '',
+  password: '',
+};
 
 function Login() {
-  const initialState = {
-    email: '',
-    password: '',
-  };
-  const [form, setForm] = useState(initialState);
+  const [inputLogin, setInputLogin] = useState(initialStateLogin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setForm({ ...form, [name]: value });
+  const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLogin({ ...inputLogin, [e.target.name]: e.target.value });
   };
-  const valid = () => {
-    const { email, password } = form;
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    return !(emailRegex.test(email) && password.length >= 6);
+  const handleIsValid = () => {
+    const REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return REGEX.test(inputLogin.email) && inputLogin.password.length >= 6;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(setEmail(form.email));
+  const handleSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(UserAction(inputLogin));
     navigate('/carteira');
   };
 
   return (
     <div>
-      <form onSubmit={ (event) => handleSubmit(event) }>
-        <div>
-          <label htmlFor="email-input"> Insira o seu e-mail </label>
-          <input
-            data-testid="email-input"
-            type="email"
-            id="email-input"
-            name="email"
-            onChange={ (event) => handleChange(event) }
-          />
-        </div>
-        <div>
-          <label htmlFor="password-input"> Insira a sua senha</label>
-          <input
-            data-testid="password-input"
-            type="password"
-            id="password-input"
-            name="password"
-            onChange={ (event) => handleChange(event) }
-          />
-        </div>
-        <button disabled={ valid() } type="submit"> Entrar </button>
+      <form onSubmit={ handleSubmitLogin }>
+        <input
+          type="text"
+          placeholder="E-mail"
+          value={ inputLogin.email }
+          name="email"
+          onChange={ handleLogin }
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          name="password"
+          value={ inputLogin.password }
+          placeholder="Password"
+          onChange={ handleLogin }
+          data-testid="password-input"
+        />
+        <button type="submit" disabled={ !handleIsValid() }>
+          Entrar
+        </button>
       </form>
     </div>
-
   );
 }
 

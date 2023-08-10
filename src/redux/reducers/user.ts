@@ -1,14 +1,19 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
 import { AnyAction } from 'redux';
+import { UserProp } from '../types/types';
+import { USER_TYPE } from '../actions';
 
-export const initialState = { email: '' };
-export const ATT_EMAIL = 'ATT_EMAIL';
+const initialState = {
+  email: '',
+  password: '',
+};
 
-export const userReducer = (state = initialState, action: AnyAction) => {
+// Esse reducer será responsável por tratar as informações da pessoa usuária
+const UserReducer = (state: UserProp = initialState, action: AnyAction) => {
   switch (action.type) {
-    case ATT_EMAIL:
-      return { ...state, email: action.email };
-    default:
-      return state;
+    case USER_TYPE:
+      return { ...state, ...action.payload };
+    default: return state;
   }
 };
+
+export default UserReducer;

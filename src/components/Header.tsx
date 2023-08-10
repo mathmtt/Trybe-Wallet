@@ -1,14 +1,16 @@
 import { useSelector } from 'react-redux';
+import { RootProp } from '../redux/types/types';
 
 function Header() {
-  const { email } = useSelector((state:any) => state.user);
+  const Value = useSelector((state: RootProp) => state.wallet.total);
+  const Users = useSelector((state: RootProp) => state.user.email);
   return (
     <header>
-      <ul>
-        <li data-testid="email-field">{ email }</li>
-        <li data-testid="total-field">0</li>
-        <li data-testid="header-currency-field">BRL</li>
-      </ul>
+      <p data-testid="total-field">
+        {Value}
+      </p>
+      <p data-testid="email-field">{Users}</p>
+      <p data-testid="header-currency-field">BRL</p>
     </header>
   );
 }
