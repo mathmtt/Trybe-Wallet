@@ -11,7 +11,7 @@ const initialState = {
 
 const initialStateChange = {
   tag: 'food',
-  method: 'money',
+  method: 'dinheiro',
   currency: 'USD',
 };
 

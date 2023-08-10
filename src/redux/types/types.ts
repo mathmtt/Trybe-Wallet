@@ -5,12 +5,10 @@ export type UserProp = {
   email: string;
   password: string;
 };
-
 export type RootProp = {
   user: UserProp,
   wallet: ExpenseProp,
 };
-
 export type Expense = {
   id?: number,
   value: string,
@@ -19,9 +17,11 @@ export type Expense = {
   method: string,
   currency: string,
   exchangeRates: {
-    code: string,
-    name: string,
-    ask: number,
+    [name: string]: {
+      code: string,
+      name: string,
+      ask: string,
+    }
   }
 };
 
@@ -32,9 +32,7 @@ export type ExpenseProp = {
   idToEdit: number,
   total: number
 };
-
 export type Dispatch = ThunkDispatch<RootProp, null, AnyAction>;
-
 export type InputValue = {
   value: number,
   description: string,
