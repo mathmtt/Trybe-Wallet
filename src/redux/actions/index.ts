@@ -7,6 +7,12 @@ export const USER_TYPE = 'USER_TYPE';
 export const WALLET_FETCH_TYPE = 'WALLET_FETCH';
 export const WALLET_INPUT_FETCH_TYPE = 'WALLET_FETCH_INPUT';
 export const WALLET_INPUT_EXPENSE_TYPE = 'WALLET_INPUT_EXPENSE_TYPE';
+export const TABLE_CLICK_DELETE = 'TABLE_CLICK_DELETE';
+
+export const TableActionDelete = (id: number) => ({
+  type: TABLE_CLICK_DELETE,
+  key: id,
+});
 
 export const UserAction = (payload:UserProp) => ({
   type: USER_TYPE,

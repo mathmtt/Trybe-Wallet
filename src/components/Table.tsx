@@ -1,9 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootProp } from '../redux/types/types';
+import { TableActionDelete } from '../redux/actions';
 
 function Table() {
+  const dispatch = useDispatch();
   const expense = useSelector((state: RootProp) => state.wallet.expenses);
-  console.log(expense);
+  const handleClickDelete = (id: number) => {
+    dispatch(TableActionDelete(id));
+  };
   return (
     <div>
       <table>
@@ -28,7 +32,7 @@ function Table() {
               <td>{element.method}</td>
               <td>{`${element.value}.00`}</td>
               <td>{element.exchangeRates[element.currency].name}</td>
-              <td>{(Number(element.exchangeRates[element.currency].ask)).toFixed(2)}</td>
+              <td>{Number(element.exchangeRates[element.currency].ask).toFixed(2)}</td>
               <td>
                 {(
                   Number(element.value)
@@ -37,7 +41,13 @@ function Table() {
               </td>
               <td>Real</td>
               <td>
-                <button>Editar/Excluir</button>
+                <button>Editar</button>
+                <button
+                  data-testid="delete-btn"
+                  onClick={ () => handleClickDelete(Number(element.id)) }
+                >
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
@@ -46,5 +56,4 @@ function Table() {
     </div>
   );
 }
-
 export default Table;
